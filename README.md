@@ -1,3 +1,47 @@
+## Apa perbedaan antara form POST dan form GET dalam Django?
+### POST
+- Digunakan untuk mengirim data, seperti _file_ atau _form data_ ke _web server_
+- Dapat mengirim data dalam jumlah besar karena dikirimkan dalam badan permintaan HTTP 
+- Lebih aman untuk mengirim data sensitif karena data tidak terlihat dalam URL
+- Bersifat _non idempotent_
+
+### GET
+- Digunakan untuk membaca dan mengambil data, seperti _file_ atau _form data_ dari _web server_
+- Hanya dapat mengirim data dalam jumlah terbatas karena sebagai parameter yang ditambahkan ke URL
+- Kurang aman untuk data sensitif karena data terlihat dalam URL dan dapat dengan mudah diakses oleh pengguna
+- Bersifat _idempotent_ yang berarti _request_ kedua akan diabaikan sebelum respon _request_ pertama dikirimkan
+
+## Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+### XML 
+- Merupakan bahasa markup yang digunakan untuk menyimpan dan mengirim data dalam struktur berhierarki
+- Data disimpan dalam tag yang membentuk _tree_ yang dimulai dari _root_, _branch_, hingga _leaves_
+- Sering digunakan untuk pengiriman data yang terstruktur dan kompleks
+- Sering digunakan untuk pengiriman data antar sistem yang berbeda
+
+### JSON
+- Merupakan format teks yang digunakan untuk menyimpan dan mengirim data dalam bentuk objek
+- Data pada JSON disimpan dalam bentuk _key_ dan _value_ seperti dalam _dictionary___
+- Sering digunakan dalam pengembangan web karena lebih mudah dibaca
+- Sering digunakan untuk pertukaran data antara server dan klien web
+
+### HTML
+- Merupakan bahasa markup yang digunakan untuk membangun struktur halaman web
+- Tidak digunakan untuk menyimpan atau mengirim data, tetapi untuk memformat dan menampilkan data
+- Dapat digunakan untuk membuat tampilan halaman web yang dapat diakses oleh pengguna, seperti teks, gambar, tautan, dan lain-lain
+
+## Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+- Memiliki sintaks yang sederhana, ringkas, dan mudah dimengerti oleh manusia
+- Sangat fleksibel dalam menggambarkan berbagai jenis informasi karena dapat mewakili berbagai jenis tipe data, seperti _string_, angka, _boolean_, dan _array_
+- Dapat digunakan dalam berbagai bahasa pemrograman dan lintas _platform_
+- Proses pertukaran data menggunakan JSON lebih efisien dan cepat karena JSON menghasilkan data yang lebih ringan dibandingkan dengan format yang lain
+
+## _Step-by-step_ dalam mengimplementasikan _checklist_ Tugas 3
+- Buat berkas baru `forms.py` pada direktori main untuk membuat struktur form yang dapat menerima data produk baru dengan menambahkan kode yang mengimpor ModelForm untuk membuat formulir berbasis model dan membuat kelas ItemForm yang merupakan turunan dari ModelForm. Kemudian, di dalam ItemForm, definisikan beberapa pengaturan melalui kelas Meta, yaitu `model = Item` untuk menunjukkan model yang digunakan untuk form dan `fields = ["name", "price", "description"]` untuk menunjukkan field dari model Item yang digunakan untuk form
+- Selanjutnya, buka berkas `views.py` yang ada pada direktori `main` dan tambahkan import HttpResponseRedirect dari django.http, ItemForm dari main.form, dan  reverse dari django.urls. Kemudian, buat fungsi baru bernama `create_item` pada berkas tersebut yang menerima parameter request dan isi dengan kode yang akan membuat dan menyimpan data item jika metode _request__ adalah POST dan input dari formnya valid dan kode yang akan melakukan _redirect_ setelah data form berhasil disimpan. Setelah itu, ubah fungsi `show_main` dengan menambahkan `items = Item.objects.all()` yang berguna untuk mengambil seluruh object item yang tersimpan pada database.
+- Buka urls.py yang ada pada folder main dan import fungsi create_item, kemudian tambahkan path url ke dalam urlpatterns untuk mengakses fungsi create_item yang sudah di-import. 
+  
+## _Screenshot_ hasil akses URL pada Postman
+
 ## _Step-by-step_ dalam mengimplementasikan _checklist_ Tugas 2
 - Membuat direktori lokal di komputer atau laptop.
 - Membuka _command_ atau _terminal_ di direktori tersebut untuk menginstall dan mengaktifkan _virtual environment_.
