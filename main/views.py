@@ -22,8 +22,8 @@ def create_item(request):
     form = ItemForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
-        form.save()
-        total_items = Item.objects.count()                                              # Hitung jumlah item dalam model item
+        form.save()                                             
+        total_items = Item.objects.count()  # Hitung jumlah item dalam model item
         notification_message = f"Kamu menyimpan {total_items} item pada aplikasi ini."  # Buat pesan notifikasi
         messages.success(request, notification_message)                                 # Simpan pesan notifikasi dalam session
         return HttpResponseRedirect(reverse('main:show_main'))
