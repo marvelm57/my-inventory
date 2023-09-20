@@ -72,7 +72,7 @@ Perbedaan yang mencolok di antara ketiga konsep arsitektur di atas ada pada komp
 
 ### JSON
 - Merupakan format teks yang digunakan untuk menyimpan dan mengirim data dalam bentuk objek
-- Data pada JSON disimpan dalam bentuk _key_ dan _value_ seperti dalam _dictionary___
+- Data pada JSON disimpan dalam bentuk _key_ dan _value_ seperti dalam _dictionary_
 - Sering digunakan dalam pengembangan web karena lebih mudah dibaca
 - Sering digunakan untuk pertukaran data antara server dan klien web
 
@@ -97,4 +97,17 @@ Perbedaan yang mencolok di antara ketiga konsep arsitektur di atas ada pada komp
 - Untuk mengembalikan data berdasarkan ID dalam bentuk XML dan JSON, buka `views.py` yang ada pada folder `main` dan buat dua fungsi baru yang menerima parameter `request` dan `id` dengan nama `show_xml_by_id` dan `show_json_by_id`. Buat variabel `data = Item.objects.filter(pk=id)` di dalam masing-masing fungsi tersebut yang menyimpan hasil _query_ dari data dengan id tertentu yang ada pada `Item`. Tambahkan _return function_ berupa `HttpResponse` yang berisi parameter data hasil _query_ yang sudah diserialisasi menjadi XML dan JSON pada masing-masing fungsi. Setelah itu, tambahkan parameter `content_type="application/xml"` dan `content_type="application/json"` pada masing-masing fungsi. Buka `urls.py` yang ada pada folder `main` dan _import_ fungsi yang sudah dibuat tadi, kemudian tambahkan _path_ url ke dalam `urlpatterns` untuk mengakses fungsi yang sudah di-_import_.
   
 ## _Screenshot_ hasil akses URL pada Postman
+1. HTML
+![Screen Shot 2023-09-20 at 12 20 27 AM](https://github.com/marvelm57/my-inventory/assets/124948653/cd90a7c8-ebde-4379-8297-69cf80c5d9d7)
 
+2. XML
+![Screen Shot 2023-09-20 at 12 20 56 AM](https://github.com/marvelm57/my-inventory/assets/124948653/64478963-ae2b-4521-b46a-13282d7dc70b)
+
+3. JSON
+![Screen Shot 2023-09-20 at 12 21 21 AM](https://github.com/marvelm57/my-inventory/assets/124948653/4f3802fb-e2c2-4fed-83ea-4df1a832bc3e)
+
+4. XML _by id_
+![Screen Shot 2023-09-20 at 12 21 47 AM](https://github.com/marvelm57/my-inventory/assets/124948653/ec86aef4-465e-41fc-b32d-0f5cb125d240)
+
+5. JSON _by id_
+![Screen Shot 2023-09-20 at 12 22 04 AM](https://github.com/marvelm57/my-inventory/assets/124948653/17f6a60a-e79f-4af2-9476-4a29f7153ab0)
