@@ -9,37 +9,57 @@
     <h5>Class:</h5>
     <p>{{class}}</p>
 
+    {% if messages %}
+        <div class="notification">
+           {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <table>
         <tr>
             <th>Name</th>
             <th>Amount</th>
             <th>Description</th>
         </tr>
-
-        {% if messages %}
-            <div class="notification">
-               {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
     
         {% comment %} Berikut cara memperlihatkan data item di bawah baris ini {% endcomment %}
     
         {% for item in items %}
             <tr>
                 <td>{{item.name}}</td>
-                <td>{{item.amount}}</td>
+                <td>
+                    <span id="amount-{{ item.id }}">{{ item.amount }}</span>
+                    <a href="{% url 'main:add_amount' item.id %}">
+                        <button>+</button>
+                    </a>
+                    <a href="{% url 'main:sub_amount' item.id %}">
+                        <button>-</button>
+                    </a>
+                </td>
                 <td>{{item.description}}</td>
+                <td>
+                    <a href="{% url 'main:delete_item' item.id %}">
+                        <button>Hapus</button>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     </table>
     
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
     <br />
     
     <a href="{% url 'main:create_item' %}">
         <button>
             Add New Item
+        </button>
+    </a>
+
+    <a href="{% url 'main:logout' %}">
+        <button>
+            Logout
         </button>
     </a>
 {% endblock content %}

@@ -1,4 +1,4 @@
-# Tugas 1
+# Tugas 2
 
 ## _Step-by-step_ dalam mengimplementasikan _checklist_ Tugas 2
 - Membuat direktori lokal di komputer atau laptop.
@@ -49,7 +49,7 @@ MVC, MVT, dan MVVM adalah konsep arsitektur yang digunakan dalam pengembangan we
 
 Perbedaan yang mencolok di antara ketiga konsep arsitektur di atas ada pada komponen _Controller_, _Template_, dan _ViewModel_. Pada konsep MVC, _Controller_ digunakan sebagai penghubung _Model_ dan _View_ dan bertanggung jawab dalam menentukan tampilan yang akan ditampilkan, kemudian View akan menampilkan tampilan antarmuka tersebut. Sedangkan, pada konsep MVT, ada komponen _Template_ yang bertanggung jawab dalam menentukan tampilan antarmuka.  Berbeda dengan konsep MVT yang menggunakan _View_ untuk menampilkan data dari model, pada konsep MVVM, terdapat komponen _ViewModel_ yang bertanggung jawab untuk meminta data dari model dan mengirimkannya ke View. Komponen ViewModel ini juga yang bertanggung jawab dalam memvalidasi user input.
 
-# Tugas 2
+# Tugas 3
 ## Apa perbedaan antara form POST dan form GET dalam Django?
 ### POST
 - Digunakan untuk mengirim data, seperti _file_ atau _form data_ ke _web server_
@@ -111,3 +111,35 @@ Perbedaan yang mencolok di antara ketiga konsep arsitektur di atas ada pada komp
 
 5. JSON _by id_
 ![Screen Shot 2023-09-20 at 12 22 04 AM](https://github.com/marvelm57/my-inventory/assets/124948653/17f6a60a-e79f-4af2-9476-4a29f7153ab0)
+
+# Tugas 4
+## Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+UserCreationForm adalah form yang disediakan oleh Django untuk mempermudah pembuatan dan pendaftaran pengguna pada aplikasi web. Dengan form ini, pengguna baru dapat mendaftar dengan mudah karena sudah mencakup username dan password, serta berbagai validasi yang umumnya diperlukan dalam proses pendaftaran.
+### Kelebihan
+- Dapat menghemat waktu dalam pengembangan karena merupakan bawaan dari _framework_ sehingga tidak perlu membuat _form_ pendaftaran pengguna dari awal.
+- Mencakup validasi otomatis untuk memastikan data yang dimasukkan oleh pengguna sesuai dengan persyaratan yang ditentukan, seperti memeriksa username dan password, serta memvalidasi format password yang kuat.
+- Dapat menangani proses autentikasi, menyimpan data pengguna di database, dan memberikan akses ke fitur autentikasi seperti login dan logout karena terintegrasi dengan Django Authentication.
+
+### Kekurangan
+- Tidak ada _field_ email sehingga tidak dapat mengonfirmasi email
+- Meskipun memiliki validasi otomatis, seperti pada password, aplikasi belum tentu benar-benar aman sehingga masih perlu penambahan fitur untuk mendukung keamanan form dari serangan.
+- Memiliki tampilan _default_ yang terbatas yang mungkin tidak sesuai dengan yang kita mau pada aplikasi kita sehingga mungkin masih perlu banyak penyesuaian.
+
+## Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+Autentikasi merupakan proses untuk memverifikasi identitas pengguna, sedangkan otorisasi adalah proses untuk menentukan apa yang boleh diakses atau dilakukan pengguna setelah diautentikasi. Autentikasi penting untuk menjaga keamanan aplikasi dan akses terhadap suatu informasi. Tanpa adanya autentikasi, semua orang dapat mengakses informasi atau data yang seharusnya hanya dapat diakses oleh pengguna yang sah. Sedangkan, otentikasi penting untuk membatasi pengguna sehingga hanya dapat bertindak atau mengakses informasi yang sewajarnya.
+
+## Apa itu _cookies_ dalam konteks aplikasi web, dan bagaimana Django menggunakan _cookies_ untuk mengelola data sesi pengguna?
+_Cookies_ adalah sekumpulan kecil data yang disimpan di sisi klien ketika pengguna mengunjungi sebuah situs web. _Cookies_ digunakan dalam konteks aplikasi web untuk menyimpan informasi tertentu yang dapat diakses dan dikelola oleh server web, serta digunakan untuk mengautentikasi pengguna, melacak sesi, atau menyimpan preferensi pengguna. Data dalam _cookie_ terdiri dari sebuah pasangan nama dan _value_ yang dikirim ke header dari HTTP GET atau POST request klien.
+
+Django menggunakan _cookie_ untuk menyimpan _session ID_ yang akan dikirimkan ke server pada setiap _request_. Kemudian, _server_ akan mengembalikan respons bersamaan dengan satu atau lebih _cookies_ ke browser. Browser akan menyimpan _cookies_ dari _server_ dan akan terus mengirim _cookies_ ke server setiap kali terjadi _request_ hingga _cookies expire_.
+
+## Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+Penggunaan _cookies_ dalam pengembangan web dapat aman selama diimplementasikan dengan tepat. Selain itu di Django sendiri sudah ada _built in protection_ terhadap beberapa ancaman yang dapat terjadi pada aplikasi web, seperti CSRF(Cross Site Request Forgery) dan XSS(Cross Site Scripting). Namun, masih banyak ancaman lain pada aplikasi web yang bisa saja terjadi sehingga risiko potensial itu tetap ada dan harus diwaspadai, seperti _cookie/session poisoning_ yang digunakan oleh penyerang dengan tujuan untuk memodifikasi data sesi atau _cookies_ untuk mendapatkan akses secara tidak sah dan masih banyak lagi.
+
+## _Step-by-step_ dalam mengimplementasikan _checklist_ Tugas 4
+- Buka berkas `views.py` yang ada di subdirektori `main` dan _import_ `UserCreationForm` yang merupakan _built in_ dalam Django yang memudahkan pembuatan formulir pendaftaran pengguna. Kemudian, buat fungsi bernama `register` yang menerima parameter `request` dan isi dengan kode yang membuat `UserCreationForm` baru, memvalidasi input dari _form_, membuat dan menyimpan data dari _form_, menampilkan pesan ke pengguna, dan melakukan _redirect_ setelah data _form_ berhasil disimpan. Selanjutnya, buat berkas `register.html` di folder `main/templates` yang berguna sebagai templates dari fungsi `register` pada views. Setelah itu, buka `urls.py` yang ada pada folder `main` dan _import_ fungsi yang sudah dibuat tadi, kemudian tambahkan _path_ url ke dalam `urlpatterns` untuk mengakses fungsi yang sudah di-_import_.
+- Buka berkas `views.py` yang ada di subdirektori `main` dan _import_ `authenticate` dan `login` yang berguna untuk melakukan autentikasi dan login jika autentikasi berhasil. Kemudian, buat fungsi bernama `login_user` yang menerima parameter `request` dan isi dengan kode untuk mengautentikasi pengguna berdasarkan username dan password yang diterima dari _request_ yang dikirim oleh pengguna saat login. Selanjutnya, buat berkas `login.html` di folder `main/templates` yang berguna sebagai templates dari fungsi `login_user` pada views. Setelah itu, buka `urls.py` yang ada pada folder `main` dan _import_ fungsi yang sudah dibuat tadi, kemudian tambahkan _path_ url ke dalam `urlpatterns` untuk mengakses fungsi yang sudah di-_import_.
+- Buka berkas `views.py` yang ada di subdirektori `main` dan _import_ `logout` yang berguna untuk melakukan logout atau keluar dari sesi. Kemudian, buat fungsi bernama `logout_user` yang menerima parameter `request` dan isi dengan kode untuk melakukan logout dengan menghapus sesi pengguna yang saat ini masuk dan mengarahkan pengguna ke halaman login. Selanjutnya, buka berkas `main.html` yang ada pada folder `main/templates` dan tambahkan kode untuk membuat tombol logout di bawah _hyperlink tag_ untuk _Add New Item_. Setelah itu, buka `urls.py` yang ada pada folder `main` dan _import_ fungsi yang sudah dibuat tadi, kemudian tambahkan _path_ url ke dalam `urlpatterns` untuk mengakses fungsi yang sudah di-_import_.
+- Untuk membuat dua akun pengguna, buka halaman login dari browser dan klik Register Now yang akan mengirim _request_ dan mengarahkan ke halaman register. Kemudian, pada halaman register, isi field username dan password sesuai ketentuan yang berlaku dan klik button _daftar_. Setelah itu, akan terjadi _redirect_ ke halaman login dan sekarang pengguna sudah terdaftar dan dapat melakukan login untuk menambah item.
+- Untuk menghubungkan `Item` dengan `User`, buka `models.py` yang ada pada subdirektori `main` dan tambahkan import `User`. Kemudian, pada model `Item`, tambahkan kode `user = models.ForeignKey(User, on_delete=models.CASCADE)` yang berfungsi untuk menghubungkan satu item dengan satu user melalui sebuah _relationship_ di mana sebuah item pasti terasosiasikan dengan seorang user. Selanjutnya, buka `views.py` yang ada pada subdirektori `main` dan tambahkan kode yang mencegah Django agar tidak langsung menyimpan objek yang telah dibuat dari _form_ langsung ke database sehingga memungkinkan kita untuk memodifikasinya terlebih dahulu. Setelah itu, ubah fungsi `show_main` dengan menambahkan kode yang akan menyaring seluruh objek dengan hanya mengambil `Item` yang dimana field `user `terisi dengan objek `User` yang sama dengan pengguna yang sedang login. Terakhir, lakukan migrasi model untuk menyimpan perubahan yang terjadi pada model.
+- Untuk menerapkan _cookies_ seperti last login, buka `views.py` yang ada pada subdirektori `main` dan tambahkan import `datetime`. Kemudian, pada fungsi `login_user`, ubah kode pada blok kode `if user is not None` yang akan melakukan login terlebih dahulu, membuat response, dan membuat _cookie `last_login` dan menambahkannya ke dalam response. Selanjutnya, pada fungsi `show_main`, tambahkan potongan kode `'last_login': request.COOKIES['last_login']` ke dalam variabel context yang berfungsi untuk menambahkan informasi cookie last_login pada response yang akan ditampilkan di halaman web. Setelah itu, ubah kode pada `logout_user` yang akan melakukan logout, membuat response, dan menghapus _cookie_ last_login. Terakhir, buka berkas `main.html` dan tambahkan potongan kode `<h5>Sesi terakhir login: {{ last_login }}</h5>` di antara tabel dan tombol logout untuk menampilkan data last login.
