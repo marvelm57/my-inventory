@@ -147,9 +147,9 @@ Penggunaan _cookies_ dalam pengembangan web dapat aman selama diimplementasikan 
 # Tugas 5
 ## Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
 - _Element selector_ memungkinkan kita mengubah properti untuk semua elemen yang memiliki tag HTML yang sama. _Element selector_ cocok digunakan ketika kita ingin memberikan gaya umum kepada semua elemen dengan tipe tertentu. Misalnya, kita mau memberikan warna merah pada elemen yang memiliki tag `<p>` yang bisa kita implementasikan sebagai berikut
-    p {
+    ```p {
         color: red
-    }
+    }```
 
 - ID _selector_ menggunakan ID pada tag sebagai selector-nya. ID dapat ditambahkan pada halaman template HTML. ID bersifat unik sehingga cocok digunakan untuk elemen yang unik dalam dokumen dan sebaiknya hanya satu elemen per halaman yang memiliki ID sama.
 
