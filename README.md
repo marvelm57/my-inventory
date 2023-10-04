@@ -143,3 +143,64 @@ Penggunaan _cookies_ dalam pengembangan web dapat aman selama diimplementasikan 
 - Untuk membuat dua akun pengguna, buka halaman login dari browser dan klik Register Now yang akan mengirim _request_ dan mengarahkan ke halaman register. Kemudian, pada halaman register, isi field username dan password sesuai ketentuan yang berlaku dan klik button _daftar_. Setelah itu, akan terjadi _redirect_ ke halaman login dan sekarang pengguna sudah terdaftar dan dapat melakukan login untuk menambah item.
 - Untuk menghubungkan `Item` dengan `User`, buka `models.py` yang ada pada subdirektori `main` dan tambahkan import `User`. Kemudian, pada model `Item`, tambahkan kode `user = models.ForeignKey(User, on_delete=models.CASCADE)` yang berfungsi untuk menghubungkan satu item dengan satu user melalui sebuah _relationship_ di mana sebuah item pasti terasosiasikan dengan seorang user. Selanjutnya, buka `views.py` yang ada pada subdirektori `main` dan tambahkan kode yang mencegah Django agar tidak langsung menyimpan objek yang telah dibuat dari _form_ langsung ke database sehingga memungkinkan kita untuk memodifikasinya terlebih dahulu. Setelah itu, ubah fungsi `show_main` dengan menambahkan kode yang akan menyaring seluruh objek dengan hanya mengambil `Item` yang dimana field `user `terisi dengan objek `User` yang sama dengan pengguna yang sedang login. Terakhir, lakukan migrasi model untuk menyimpan perubahan yang terjadi pada model.
 - Untuk menerapkan _cookies_ seperti last login, buka `views.py` yang ada pada subdirektori `main` dan tambahkan import `datetime`. Kemudian, pada fungsi `login_user`, ubah kode pada blok kode `if user is not None` yang akan melakukan login terlebih dahulu, membuat response, dan membuat _cookie `last_login` dan menambahkannya ke dalam response. Selanjutnya, pada fungsi `show_main`, tambahkan potongan kode `'last_login': request.COOKIES['last_login']` ke dalam variabel context yang berfungsi untuk menambahkan informasi cookie last_login pada response yang akan ditampilkan di halaman web. Setelah itu, ubah kode pada `logout_user` yang akan melakukan logout, membuat response, dan menghapus _cookie_ last_login. Terakhir, buka berkas `main.html` dan tambahkan potongan kode `<h5>Sesi terakhir login: {{ last_login }}</h5>` di antara tabel dan tombol logout untuk menampilkan data last login.
+
+# Tugas 5
+## Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+- _Element selector_ memungkinkan kita mengubah properti untuk semua elemen yang memiliki tag HTML yang sama. _Element selector_ cocok digunakan ketika kita ingin memberikan gaya umum kepada semua elemen dengan tipe tertentu. Misalnya, kita mau memberikan warna merah pada elemen yang memiliki tag `<p>` yang bisa kita implementasikan sebagai berikut
+    p {
+        color: red
+    }
+
+- ID _selector_ menggunakan ID pada tag sebagai selector-nya. ID dapat ditambahkan pada halaman template HTML. ID bersifat unik sehingga cocok digunakan untuk elemen yang unik dalam dokumen dan sebaiknya hanya satu elemen per halaman yang memiliki ID sama.
+
+- Class _selector_ memungkinkan kita untuk mengelompokkan elemen dengan karakteristik yang sama. Class selector cocok digunakan apabila kita ingin memberikan _style_ tertentu kepada sekelompok elemen yang serupa, tetapi tidak semua elemen dalam dokumen.
+
+## Jelaskan HTML5 Tag yang kamu ketahui.
+HTML5 adalah versi terbaru dari bahasa _markup_ yang digunakan untuk membuat halaman web
+Berikut adalah beberapa HTML5 Tag:
+- `<html>` : Menandai awal dan akhir dokumen html
+- `<head>` : Menyediakan informasi tentang dokumen, seperti judul dan penghubung ke berkas-berkas eksternal.
+- `<body>` : Menandai konten utama halaman web
+- `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`: Menandai judul atau _heading_ dengan tingkat kepentingan yang berbeda.
+- `<p>` : Menandai paragraf teks.
+- `<a>` : Membuat _link_ ke halaman atau sumber eksternal.
+- `<table>` : Membuat tabel data
+- `<tr>`: Menandai baris dalam tabel.
+- `<td>` : Menandai kolom dalam tabel.
+- `<form>`: Membuat formulir untuk mengumpulkan input dari pengguna.
+- `<style>` : Internal CSS dalam dokumen HTML
+- `<meta>` : Mmberikan informasi meta seperti karakter encoding atau deskripsi dokumen.
+- `<link>` : Menghubungkan dokumen dengan berkas eksternal, seperti Bootstrap CSS.
+- `<script>` : Menghubungkan dokumen dengan kode JavaScript.
+
+## Jelaskan perbedaan antara margin dan padding.
+Margin dan padding adalah properti CSS yang digunakan untuk mengatur ruang di sekitar dan di dalam elemen HTML
+
+### Margin
+- Merupakan ruang di luar elemen HTML, di antara elemen tersebut dan elemen-elemen lain di sekitarnya.
+- Digunakan untuk mengatur jarak antara elemen HTML dengan elemen-elemen lain di sekitarnya
+
+### Padding
+- Merupakan ruang di dalam elemen HTML, di antara konten elemen dan batas (border) elemen tersebut
+- Digunakan untuk mengatur jarak antara konten elemen dengan batas elemen (border).
+
+
+## Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+### Tailwind
+- Membangun tampilan dengan menggabungkan kelas-kelas utilitas yang telah didefinisikan sebelumnya.
+- Memiliki file CSS yang lebih kecil sedikit dibandingkan Bootstrap dan hanya akan memuat kelas-kelas utilitas yang ada
+- Memiliki memberikan fleksibilitas dan adaptabilitas tinggi terhadap proyek
+- Memiliki pembelajaran yang lebih curam karena memerlukan pemahaman terhadap kelas-kelas utilitas yang tersedia dan bagaimana menggabungkannya untuk mencapai tampilan yang diinginkan.
+
+### Bootstrap
+- Menggunakan gaya dan komponen yang telah didefinisikan, yang memiliki tampilan yang sudah jadi dan dapat digunakan secara langsung.
+- Memiliki file CSS yang lebih besar dibandingkan dengan Tailwind CSS karena termasuk banyak komponen yang telah didefinisikan.
+- Menghasilkan tampilan yang lebih konsisten di seluruh proyek karena menggunakan komponen yang telah didefinisikan.
+- Memiliki pembelajaran yang lebih cepat untuk pemula karena dapat mulai dengan komponen yang telah didefinisikan.
+
+Bootstrap cocok digunakan apabila kita ingin membangun halaman web dengan cepat karena Bootstrap memiliki banyak komponen siap pakai dan tidak memerlukan waktu banyak untuk memahami komponen-komponen yang ada. Selain itu, Bootstrap juga cocok digunakan apabila kita ingin tampilan yang lebih konsisten di seluruh proyek. Sedangkan, Tailwind cocok digunakan apabila kita ingin kustomisasi yang tidak terbatas karena Tailwind memberikan fleksibilitas dan adaptabilitas yang tinggi. Selain itu, Tailwind cocok digunakan apabila kita ingin menghindari _overhead_ CSS yang tidak terpakai karena Taliwind menghasilkan file CSS yang lebih kecil dibandingkan Bootstrap.
+
+## _Step-by-step_ dalam mengimplementasikan _checklist_ Tugas 5
+- Buka file `base.html` yang ada di dalam folder `templates` dan menambahkan Bootstrap CSS dengan membuat tag `<link>` untuk menambahkan _link_ Bootstrap. Kemudian, tambahkan juga JavaScript ke dalam dokumen dengan membuat tag `<script>` untuk menambahkan _source_ JavaScript. Sekarang, kita sudah dapat mengkustomisasi halaman aplikasi web kita.
+- Di dalam halaman login dan register, saya menggunakan _class selector_ untuk mengkustomisasi elemen-elemen yang hanya ada di class login.
+- Di dalam halaman inventori, saya menambahkan navbar untuk menampilkan nama _user_ dan tombol _logout_. Kemudian, saya menggunakan _element selector_ untuk mengkustomisasi elemen berdasarkan tag-nya.

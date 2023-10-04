@@ -36,15 +36,15 @@ def create_item(request):
         messages.success(request, notification_message)                                 # Simpan pesan notifikasi dalam session
         return HttpResponseRedirect(reverse('main:show_main'))
 
-    context = {'form': form}
+    context = {'name': request.user.username, 'form': form}
     return render(request, "create_item.html", context)
 
 def show_xml(request):
-    data = Item.objects.all()
+    data = Item.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
 def show_json(request):
-    data = Item.objects.all()
+    data = Item.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_xml_by_id(request, id):
@@ -100,6 +100,21 @@ def sub_amount(request, item_id):
         item.amount -= 1
         item.save()
     return HttpResponseRedirect(reverse("main:show_main"))
+
+def edit_item(request, id):
+    # Get item berdasarkan ID
+    item = Item.objects.get(pk = id)
+
+    # Set item sebagai instance dari form
+    form = ItemForm(request.POST or None, instance=item)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'name': request.user.username, 'form': form}
+    return render(request, "edit_item.html", context)
     
 def delete_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
