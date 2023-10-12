@@ -204,3 +204,49 @@ Bootstrap cocok digunakan apabila kita ingin membangun halaman web dengan cepat 
 - Buka file `base.html` yang ada di dalam folder `templates` dan menambahkan Bootstrap CSS dengan membuat tag `<link>` untuk menambahkan _link_ Bootstrap. Kemudian, tambahkan juga JavaScript ke dalam dokumen dengan membuat tag `<script>` untuk menambahkan _source_ JavaScript. Sekarang, kita sudah dapat mengkustomisasi halaman aplikasi web kita.
 - Di dalam halaman login dan register, saya menggunakan _class selector_ untuk mengkustomisasi elemen-elemen yang hanya ada di class login.
 - Di dalam halaman inventori, saya menambahkan navbar untuk menampilkan nama _user_ dan tombol _logout_. Kemudian, saya menggunakan _element selector_ untuk mengkustomisasi elemen berdasarkan tag-nya.
+
+# Tugas 6
+## Jelaskan perbedaan antara asynchronous programming dengan synchronous programming
+### Asynchronous programming
+- Program dapat berjalan secara paralel yang berarti tugas-tugas dapat dieksekusi secara bersamaan tanpa harus menunggu yang satu selesai.
+- _Non blocking_ yang berarti program dapat mengirimkan beberapa request ke server secara bersamaan.
+- Program menggunakan callback atau konsep await/async yang merupakan fungsi yang akan dipanggil saat tugas asinkron selesai.
+- Cocok digunakan digunakan untuk tugas-tugas yang memerlukan waktu banyak.
+
+### Synchronous programming
+- Tugas-tugas dieksekusi secara berurutan. Program akan menunggu tugas saat ini selesai sebelum melanjutkan ke tugas berikutnya.
+- _Blocking_ yang berarti ketika ada suatu request pada server, program akan menunggu request saat ini dijawab oleh server sebelum mengirimkan request lainnya.
+- Program mengikuti aliran eksekusi yang berurutan. Fungsi atau metode dipanggil satu per satu dan hasilnya diproses secara berurutan.
+- Cocok untuk tugas-tugas yang sederhana dan tidak memerlukan penanganan operasi yang memakan waktu.
+
+
+## Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma _event-driven programming_. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini
+_Event-driven programming_ adalah paradigm pemrograman di mana aliran eksekusi program bergantung pada _event_ yang terjadi, seperti mengklik tombol, mengisi formulir, atau menerima respons dari server. Ketika _event_ terjadi, _event handler_ akan dijalankan untuk menentukan tindakan apa yang harus dilakukan. 
+
+Contoh penerapannya pada tugas ini ada pada tombol "Add Item by Ajax" dengan _event handler_ `document.getElementById("button_add").onclick = addItem`. Ketika tombol ini diklik, event handler akan menjalankan fungsi addItem yang akan mengirimkan permintaan AJAX untuk membuat sebuah FormData baru yang datanya diambil dari form pada modal dan kemudian memperbarui tampilan dengan memanggil `refreshItems()`.
+
+## Jelaskan penerapan _asynchronous programming_ pada AJAX
+Pada AJAX, ketika kita ingin berkomunikasi dengan server untuk mengambil atau mengirim data, kita dapat menggunakan objek `XMLHttpRequest` atau API fetch. Ketika permintaan HTTP dikirim, program tidak akan terhenti atau diblokir. Program akan melanjutkan menjalankan instruksi-instruksi berikutnya tanpa menunggu respons dari server. Ini merupakan salah satu penerapan _asynchronus programming_ pada AJAX.
+
+## Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan
+### Fetch API
+- Bagian dari JavaScript yang berarti tidak perlu mengunduh atau memuat library eksternal tambahan.
+- Dapat digunakan dengan berbagai tipe data, seperti JSON, XML, teks, FormData.
+- Menggunakan `Promise`, yang membuatnya lebih mudah dalam penanganan permintaan asinkron, termasuk pemrosesan respons.
+
+### jQuery
+- Dapat berjalan konsisten di berbagai browser.
+- Memiliki ekosistem plugin yang besar yang dapat memperluas fungsionalitasnya dengan mudah
+- Bagus dalam manipulasi DOM sehingga lebih mudah untuk mengatur elemen HTML dan merespons peristiwa.
+
+Fetch API adalah pilihan yang baik untuk aplikasi _web modern_, terutama jika kita ingin memanfaatkan fitur-fitur JavaScript modern dan tidak ingin bergantung pada library tambahan. Sedangkan, jQuery bermanfaat dalam proyek-proyek tertentu yang membutuhkan kompatibilitas lintas browser yang baik atau perlu memanfaatkan plugin-plugin ekosistemnya.
+
+Pilihan antara menggunakan Fetch API dan jQuery tergantung pada kebutuhan proyek. Namun, menggunakan Fetch API akan lebih baik karena lebih mudah dan efisien.
+
+## _Step-by-step_ dalam mengimplementasikan _checklist_ Tugas 6
+- Membuat fungsi `get_item_json` di dalam berkas `views.py` untuk mengembalikan data item dalam bentuk JSON pada HTML menggunakan fetch.
+- Membuat fungsi `add_item_ajax` di dalam berkas `views.py` untuk menambahkan produk dengan AJAX. Kemudian, impor `from django.views.decorators.csrf import csrf_exempt` dan tambahkan dekorator `@csrf_exempt` di atas fungsi yang telah dibuat.
+- Menambahkan routing untuk fungsi `get_item_json` dan `add_item_ajax` dengan cara mengimpor fungsi `get_item_json` dan `add_item_ajax` di dalam berkas `urls.py` pada `main`. Kemudian, tambahkan _path url_ kedua fungsi tersebut ke dalam urlpatterns.
+- Menampilkan data item dengan `Fetch()` API dengan cara membuka berkas `main.html` pada `main`. Kemudian, tambahkan kode `<table id="item_table"></table>` sebagai struktur tabel. Selanjutnya, buat block `<script>` dan buat fungsi di dalamnya dengan nama `getItems()` yang akan digunakan untuk fetch API ke data JSON secara _asynchronous_. Setelah itu, buat fungsi lain dengan nama `refreshItems()` yang akan digunakan untuk me-refresh data produk secara _asynchronous_ dan mengisi tabel `item_table` dengan data item yang diambil dari `getItems()`.
+- Membuat modal sebagai form untuk menambahkan item dengan cara menambahkan kode untuk mengimplementasikan modal ke dalam `main.html` pada `main`. Setelah itu, tambahkan `button` yang berfungsi untuk menampilkan modal.
+- Membuat fungsi baru pada block `<script>` pada `main.html` dengan nama `addItem()` yang akan membuat sebuah FormData baru yang datanya diambil dari form pada modal dan setiap kali form selesai diisi, data akan dikosongkan kembali. Kemudian, tambahkan fungsi `onclick` pada button "Add Item" pada modal untuk menjalankan fungsi `addItem()`.
