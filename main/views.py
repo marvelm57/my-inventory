@@ -1,13 +1,14 @@
 import datetime
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.core import serializers
 
+from django.http import HttpResponseNotFound, HttpResponse, HttpResponseRedirect, JsonResponse
+from django.core import serializers
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -60,6 +61,25 @@ def add_item_ajax(request):
         return HttpResponse(b"CREATED", status=201)
 
     return HttpResponseNotFound()
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Item.objects.create(
+            user = request.user,
+            name = data["name"],
+            amount = int(data["amount"]),
+            description = data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
 
 def show_xml(request):
     data = Item.objects.filter(user=request.user)
